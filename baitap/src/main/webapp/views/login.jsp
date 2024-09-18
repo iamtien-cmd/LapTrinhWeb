@@ -8,16 +8,20 @@
     Cookie[] cookies = request.getCookies();
     String username = "";
     String password = "";
+
     boolean remember = false;
 
     if (cookies != null) {
         for (Cookie cookie : cookies) {
             if (Constant.COOKIE_REMEMBER.equals(cookie.getName())) {
                 username = cookie.getValue();
+                
                 remember = true;
             }
             if (Constant.COOKIE_PASSWORD.equals(cookie.getName())) {
-                password = cookie.getValue();
+            	password = cookie.getValue();
+                
+                remember = true;
             }
         }
     }
@@ -28,6 +32,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Thêm liên kết đến CSS nếu cần -->
 </head>
 <body>
     <!-- Form đăng nhập -->
@@ -48,10 +53,10 @@
 
                     <!-- Nhập mật khẩu -->
                     <input type="password" placeholder="Mật khẩu" name="password" class="form-control"
-                           value="<%= password %>" required /><br>
+                           required value="<%= password %>" /><br>
 
                     <!-- Checkbox "Nhớ tôi" -->
-                    <input type="checkbox" name="remember" <%= remember ? "checked" : "" %> value="ON"> Nhớ tôi <br>
+                    <input type="checkbox" name="remember" /> Nhớ tôi <br>
 
                     <!-- Link đến trang quên mật khẩu -->
                     <li><a href="${pageContext.request.contextPath}/views/ForgetPass.jsp">Quên mật khẩu</a></li>

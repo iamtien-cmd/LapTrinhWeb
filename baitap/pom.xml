@@ -5,6 +5,7 @@
   <version>1.0</version>
   <packaging>war</packaging>
   <dependencies>
+	  
 		<!-- SQL Server JDBC driver -->
 		<dependency>
 			<groupId>com.microsoft.sqlserver</groupId>
@@ -45,8 +46,12 @@
 			<artifactId>jakarta.servlet.jsp-api</artifactId>
 			<version>4.0.0</version>
 			<scope>provided</scope>
-		</dependency>
-	
+			</dependency>
+		<dependency>
+	<groupId>org.sitemesh</groupId>
+	<artifactId>sitemesh</artifactId>
+	<version>3.2.1</version>
+	</dependency>
 
 	</dependencies>
 	<build>

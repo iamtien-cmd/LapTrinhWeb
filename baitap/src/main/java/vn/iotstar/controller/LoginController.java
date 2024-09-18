@@ -37,20 +37,11 @@ public class LoginController extends HttpServlet {
             for (Cookie cookie : cookies) {
                 if (Constant.COOKIE_REMEMBER.equals(cookie.getName())) {
                     savedUsername = cookie.getValue();
+                	req.setAttribute(Constant.COOKIE_REMEMBER, savedUsername);
                 } else if (Constant.COOKIE_PASSWORD.equals(cookie.getName())) {
                     savedPassword = cookie.getValue();
+                    req.setAttribute(Constant.COOKIE_PASSWORD, savedPassword);
                 }
-            }
-        }
-
-        if (savedUsername != null && savedPassword != null) {
-            UserService service = new UserServiceImpl();
-            User user = service.login(savedUsername, savedPassword);
-            if (user != null) {
-                session = req.getSession(true);
-                session.setAttribute("account", user);
-                resp.sendRedirect(req.getContextPath() + "/waiting");
-                return;
             }
         }
 
@@ -104,12 +95,13 @@ public class LoginController extends HttpServlet {
     // Lưu cookie "Nhớ tôi"
     private void saveRememberMe(HttpServletResponse response, String username, String password) {
         Cookie usernameCookie = new Cookie(Constant.COOKIE_REMEMBER, username);
-        usernameCookie.setMaxAge(30 * 60); // Cookie có hiệu lực trong 30 phút
+        usernameCookie.setMaxAge(30*60); // Cookie có hiệu lực trong 30 phút
         response.addCookie(usernameCookie);
-
+       
         Cookie passwordCookie = new Cookie(Constant.COOKIE_PASSWORD, password);
-        passwordCookie.setMaxAge(30 * 60); // Cookie có hiệu lực trong 30 phút
+        passwordCookie.setMaxAge(30*60); // Cookie có hiệu lực trong 30 phút
         response.addCookie(passwordCookie);
+    
     }
 
     // Xóa cookie "Nhớ tôi"
